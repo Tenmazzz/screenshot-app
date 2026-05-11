@@ -1,7 +1,8 @@
 <script setup>
     const props = defineProps({
     screenshots: Array,
-    selectedScreen: Object
+    selectedScreen: Object,
+    highlightedScreenId: Number
     })
 
     const emit = defineEmits(['update:selectedScreen'])
@@ -9,7 +10,10 @@
 
 <template>
     <div class="grid grid-cols-3 gap-5 mt-8 mx-auto w-8/12">
-        <div v-for="screen in screenshots" class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden group transition-transform duration-200 hover:scale-110">
+        <div v-for="screen in screenshots" :id="'screen-' + screen.id" :class="{
+        'outline outline-emerald-500 animate-pulse': screen.id === highlightedScreenId && screen.status === 'done',
+        'outline outline-red-500 animate-pulse': screen.id === highlightedScreenId && screen.status === 'failed'
+            }" class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden group transition-transform duration-200 hover:scale-110">
 
             <div class="aspect-video overflow-hidden bg-black/30 relative cursor-pointer" @click="screen.status === 'done' && emit('update:selectedScreen', screen)">
                 <img v-if="screen.status === 'done'" :src="`/storage/${screen.file_path}`" class="w-full h-full object-cover object-top" />
