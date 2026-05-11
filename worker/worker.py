@@ -66,7 +66,7 @@ def send_url(data_json):
         print("url : ", url)
         take_screenshot(url, screenshot_name, full_size)
         upload_file(screenshot_name, "screenshots")
-
+        os.remove(screenshot_name)
         requests.post(f"http://nginx/api/screenshots/{screenshot_id}/update_screenshot", {
             'status': 'done',
             'file_path': f"screenshot_{screenshot_id}.png"
