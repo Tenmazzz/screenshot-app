@@ -17,7 +17,7 @@ deploy:
   script:
     - cd $CI_PROJECT_DIR
     - docker compose down
-    - docker compose up -d
+    - docker compose up -d --build
   when: manual
   only:
     - main
