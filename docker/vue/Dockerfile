@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY frontend/package*.json .
 
-RUN npm ci && npm install -g vite
+RUN npm install --include=dev
 
 COPY frontend/ .
 
-CMD ["vite", "--host"]
+CMD ["npm", "run", "dev", "--", "--host"]
