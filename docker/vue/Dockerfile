@@ -8,4 +8,5 @@ RUN npm ci
 
 COPY frontend/ .
 
-CMD ["npm", "run", "dev", "--", "--host"]
+CMD ["node_modules/.bin/vite", "--host"]
+#  car sur le terminal de la vm(sh) ne configure pas le chemin automatiquement
