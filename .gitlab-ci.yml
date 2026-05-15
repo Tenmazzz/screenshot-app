@@ -4,12 +4,16 @@ stages:
 
 build:
   stage: build
+  tags:
+    - cmd_runner
   script:
     - cd $CI_PROJECT_DIR
     - docker compose build
 
 deploy:
   stage: deploy
+  tags:
+    - cmd_runner
   script:
     - cd $CI_PROJECT_DIR
     - docker compose down
