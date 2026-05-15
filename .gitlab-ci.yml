@@ -1,0 +1,19 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - cd $CI_PROJECT_DIR
+    - docker compose build
+
+deploy:
+  stage: deploy
+  script:
+    - cd $CI_PROJECT_DIR
+    - docker compose down
+    - docker compose up -d
+  when: manual
+  only:
+    - main
