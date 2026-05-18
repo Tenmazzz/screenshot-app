@@ -9,6 +9,6 @@ export default defineConfig({
   ],
   server: {
     port: 6700,
-    allowedHosts: 'all'
+    allowedHosts: true
   }
 })
