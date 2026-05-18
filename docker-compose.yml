@@ -3,7 +3,6 @@ services:
     build:
       context: .
       dockerfile: docker/vue/Dockerfile
-    vue:
     volumes:
       - ./frontend:/app
       - /app/node_modules 
