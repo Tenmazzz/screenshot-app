@@ -8,6 +8,7 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
-    port: 6700
+    port: 6700,
+    allowedHosts: 'all'
   }
 })
