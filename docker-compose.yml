@@ -15,6 +15,7 @@ services:
       dockerfile: docker/php/Dockerfile
     volumes:
       - ./backend:/var/www/html
+      - /var/www/html/vendor
     networks:
       - interne
     depends_on:
@@ -96,6 +97,7 @@ services:
     command: php artisan queue:work --queue=broadcast_queue
     volumes:
       - ./backend:/var/www/html
+      - /var/www/html/vendor
     networks:
       - interne
     depends_on:
