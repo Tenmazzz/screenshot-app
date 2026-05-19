@@ -1,6 +1,5 @@
 FROM php:8.2-fpm
 
-# Installer les dépendances système
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -12,7 +11,10 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-enable redis \
     && apt-get clean
 
-# Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
+
+COPY backend/ .
+
+RUN composer install --no-dev --optimize-autoloader
