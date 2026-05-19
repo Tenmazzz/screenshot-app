@@ -16,6 +16,7 @@ services:
     volumes:
       - ./backend:/var/www/html
       - /var/www/html/vendor
+      - /var/www/html/storage
     networks:
       - interne
     depends_on:
@@ -98,6 +99,7 @@ services:
     volumes:
       - ./backend:/var/www/html
       - /var/www/html/vendor
+      - /var/www/html/storage
     networks:
       - interne
     depends_on:
