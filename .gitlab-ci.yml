@@ -17,6 +17,7 @@ deploy:
   script:
     - cd $CI_PROJECT_DIR
     - docker compose down 
+    - envsubst < backend/.env.production > backend/.env
     - docker compose up -d
   when: manual
   only:

@@ -59,8 +59,8 @@ services:
     image: postgres:15
     environment:
       POSTGRES_DB: screenshot_app
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:
