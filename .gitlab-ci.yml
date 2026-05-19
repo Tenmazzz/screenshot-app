@@ -17,7 +17,7 @@ deploy:
   script:
     - cd $CI_PROJECT_DIR
     - docker compose down
-    - docker compose build --no-cache vue
+    - docker compose build --no-cache 
     - docker compose up -d
   when: manual
   only:
