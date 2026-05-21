@@ -15,7 +15,7 @@ const isZoomed = ref(false)
 const showToast = ref(false)
 const toastStatus = ref('')
 const toastScreenId = ref('')
-const highlightedScreenId = ref('')
+const highlightedScreenId = ref(null)
 const mostFailed = computed(() => {
   const counts = {}
   screenshots.value.filter(s => s.status === 'failed').forEach(s => {
