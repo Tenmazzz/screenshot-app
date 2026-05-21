@@ -8,10 +8,11 @@ window.Pusher = Pusher;
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: 'app-key',
+    key: 'screenshot_app_key',
     wsHost: window.location.hostname,
-    wsPort: 6001,
-    forceTLS: false,
+    wsPort: window.location.port || 443,
+    wssPort: window.location.port || 443,
+    forceTLS: window.location.protocol === 'https:',
     cluster: 'mt1',
     disableStats: true,
     enabledTransports: ['ws', 'wss'],

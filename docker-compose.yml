@@ -15,7 +15,6 @@ services:
       dockerfile: docker/php/Dockerfile
     volumes:
       - ./backend:/var/www/html
-      - /var/www/html/vendor
       - /var/www/html/storage
     networks:
       - interne
@@ -58,6 +57,7 @@ services:
     
   postgres:
     image: postgres:15
+    env_file: "./backend/.env"
     environment:
       POSTGRES_DB: screenshot_app
       POSTGRES_USER: ${DB_USERNAME}
@@ -70,6 +70,7 @@ services:
   minio:
     image: minio/minio:RELEASE.2025-09-07T16-13-09Z
     command: server /data --console-address ":9001"
+    env_file: "./backend/.env"
     environment:
       MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID}
       MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY}
@@ -82,6 +83,7 @@ services:
   
   soketi:
     image: quay.io/soketi/soketi:1.6.1-16-alpine
+    env_file: "./backend/.env"
     environment:
       SOKETI_DEFAULT_APP_ID: ${PUSHER_APP_ID}
       SOKETI_DEFAULT_APP_KEY: ${PUSHER_APP_KEY}
