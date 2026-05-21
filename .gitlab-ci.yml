@@ -15,7 +15,7 @@ deploy:
   tags:
     - screenshot-runner
   script:
-    - $CI_PROJECT_DIR
+    - cd $CI_PROJECT_DIR
     - docker compose down
     - envsubst < backend/.env.production > backend/.env
     - docker compose up -d
