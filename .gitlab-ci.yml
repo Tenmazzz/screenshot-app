@@ -8,6 +8,7 @@ build:
     - screenshot-runner
   script:
     - cd $CI_PROJECT_DIR
+    - envsubst < backend/.env.production > backend/.env
     - docker compose build --no-cache
 
 deploy:
@@ -17,7 +18,6 @@ deploy:
   script:
     - cd $CI_PROJECT_DIR
     - docker compose down
-    - envsubst < backend/.env.production > backend/.env
     - docker compose up -d
   when: manual
   only:
