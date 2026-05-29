@@ -10,7 +10,16 @@ build:
     - cd $CI_PROJECT_DIR
     - envsubst < backend/.env.production > backend/.env
     - docker compose build --no-cache
-
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker tag screenshot-app-laravel $CI_REGISTRY_IMAGE/laravel:latest
+    - docker tag screenshot-app-vue $CI_REGISTRY_IMAGE/vue:latest
+    - docker tag screenshot-app-worker $CI_REGISTRY_IMAGE/worker:latest
+    - docker tag screenshot-app-nginx $CI_REGISTRY_IMAGE/nginx:latest
+    - docker push $CI_REGISTRY_IMAGE/laravel:latest
+    - docker push $CI_REGISTRY_IMAGE/vue:latest
+    - docker push $CI_REGISTRY_IMAGE/worker:latest
+    - docker push $CI_REGISTRY_IMAGE/nginx:latest
+    
 deploy:
   stage: deploy
   tags:
