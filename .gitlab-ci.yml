@@ -1,7 +1,3 @@
-stages:
-  - build
-  - deploy
-
 build:
   stage: build
   tags:
@@ -9,26 +5,23 @@ build:
   script:
     - cd $CI_PROJECT_DIR
     - envsubst < backend/.env.production > backend/.env
-    - docker compose build --no-cache
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker tag screenshot-app-laravel $CI_REGISTRY_IMAGE/laravel:latest
-    - docker tag screenshot-app-vue $CI_REGISTRY_IMAGE/vue:latest
-    - docker tag screenshot-app-worker $CI_REGISTRY_IMAGE/worker:latest
-    - docker tag screenshot-app-nginx $CI_REGISTRY_IMAGE/nginx:latest
-    - docker push $CI_REGISTRY_IMAGE/laravel:latest
-    - docker push $CI_REGISTRY_IMAGE/vue:latest
-    - docker push $CI_REGISTRY_IMAGE/worker:latest
-    - docker push $CI_REGISTRY_IMAGE/nginx:latest
-    
+    - docker compose -f docker-compose.prod.yml build --no-cache
+    - docker push $CI_REGISTRY_IMAGE/vue:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY_IMAGE/laravel:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY_IMAGE/worker:$CI_COMMIT_SHORT_SHA
+  only:
+    - main
+
 deploy:
   stage: deploy
   tags:
     - screenshot-runner
   script:
     - cd $CI_PROJECT_DIR
-    - docker compose down
     - envsubst < backend/.env.production > backend/.env
-    - docker compose up -d
+    - docker compose -f docker-compose.prod.yml down
+    - docker compose -f docker-compose.prod.yml up -d --no-build
   when: manual
   only:
     - main
