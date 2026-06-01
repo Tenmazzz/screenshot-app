@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: docker/vue/Dockerfile
-    image: ${CI_REGISTRY_IMAGE}/vue:${CI_COMMIT_SHORT_SHA}
+    #image: ${CI_REGISTRY_IMAGE}/vue:${CI_COMMIT_SHORT_SHA}
     restart: always
     networks:
       - interne
@@ -13,7 +13,7 @@ services:
       context: .
       dockerfile: docker/php/Dockerfile
       target: prod
-    image: ${CI_REGISTRY_IMAGE}/laravel:${CI_COMMIT_SHORT_SHA}
+    #image: ${CI_REGISTRY_IMAGE}/laravel:${CI_COMMIT_SHORT_SHA}
     restart: always
     networks:
       - interne
@@ -23,7 +23,11 @@ services:
       - minio
  
   laravel-worker:
-    image: ${CI_REGISTRY_IMAGE}/laravel:${CI_COMMIT_SHORT_SHA}
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      target: prod
+    #image: ${CI_REGISTRY_IMAGE}/laravel:${CI_COMMIT_SHORT_SHA}
     command: php artisan queue:work --queue=broadcast_queue
     restart: always
     networks:
@@ -36,7 +40,7 @@ services:
     build:
       context: .
       dockerfile: docker/worker/Dockerfile
-    image: ${CI_REGISTRY_IMAGE}/worker:${CI_COMMIT_SHORT_SHA}
+    #image: ${CI_REGISTRY_IMAGE}/worker:${CI_COMMIT_SHORT_SHA}
     environment:
       - PYTHONUNBUFFERED=1
     restart: always
