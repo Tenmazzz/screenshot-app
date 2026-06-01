@@ -12,6 +12,12 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
+# Stage dev
+FROM base AS dev
+COPY backend/composer.json backend/composer.lock ./
+RUN composer install --no-scripts
+# le reste du code est monté via le volume
+
 # Stage prod
 FROM base AS prod
 COPY backend/ .
@@ -20,7 +26,3 @@ RUN chown -R www-data:www-data /var/www/html/storage \
     && chown -R www-data:www-data /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage \
     && chmod -R 775 /var/www/html/bootstrap/cache
-
-# Stage dev
-FROM base AS dev
-RUN composer install

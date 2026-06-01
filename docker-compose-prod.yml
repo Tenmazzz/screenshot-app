@@ -3,15 +3,17 @@ services:
     build:
       context: .
       dockerfile: docker/vue/Dockerfile
-    image: $CI_REGISTRY_IMAGE/vue:$CI_COMMIT_SHORT_SHA
+    image: ${CI_REGISTRY_IMAGE}/vue:${CI_COMMIT_SHORT_SHA}
+    restart: always
     networks:
       - interne
-
+ 
   laravel:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    image: $CI_REGISTRY_IMAGE/laravel:$CI_COMMIT_SHORT_SHA
+      target: prod
+    image: ${CI_REGISTRY_IMAGE}/laravel:${CI_COMMIT_SHORT_SHA}
     restart: always
     networks:
       - interne
@@ -19,9 +21,9 @@ services:
       - postgres
       - redis
       - minio
-
+ 
   laravel-worker:
-    image: $CI_REGISTRY_IMAGE/laravel:$CI_COMMIT_SHORT_SHA  # pas de build, réutilise laravel
+    image: ${CI_REGISTRY_IMAGE}/laravel:${CI_COMMIT_SHORT_SHA}
     command: php artisan queue:work --queue=broadcast_queue
     restart: always
     networks:
@@ -29,12 +31,12 @@ services:
     depends_on:
       - redis
       - laravel
-
+ 
   worker:
     build:
       context: .
       dockerfile: docker/worker/Dockerfile
-    image: $CI_REGISTRY_IMAGE/worker:$CI_COMMIT_SHORT_SHA
+    image: ${CI_REGISTRY_IMAGE}/worker:${CI_COMMIT_SHORT_SHA}
     environment:
       - PYTHONUNBUFFERED=1
     restart: always
@@ -42,7 +44,7 @@ services:
       - interne
     depends_on:
       - redis
-
+ 
   nginx:
     image: nginx:alpine
     restart: always
@@ -56,13 +58,13 @@ services:
     depends_on:
       - laravel
       - vue
-
+ 
   redis:
     image: redis:7
     restart: always
     networks:
       - interne
-
+ 
   postgres:
     image: postgres:15
     restart: always
@@ -74,7 +76,7 @@ services:
       - pg_data:/var/lib/postgresql/data
     networks:
       - interne
-
+ 
   minio:
     image: minio/minio:RELEASE.2025-09-07T16-13-09Z
     command: server /data --console-address ":9001"
@@ -88,7 +90,7 @@ services:
       - "9001:9001"
     networks:
       - interne
-
+ 
   soketi:
     image: quay.io/soketi/soketi:1.6.1-16-alpine
     restart: always
@@ -101,11 +103,11 @@ services:
       - "6001:6001"
     networks:
       - interne
-
+ 
 networks:
   interne:
     driver: bridge
-
+ 
 volumes:
   pg_data:
   minio_data:
