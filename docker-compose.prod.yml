@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: docker/vue/Dockerfile
+      target: prod
     image: ${CI_REGISTRY_IMAGE}/vue:${CI_COMMIT_SHORT_SHA}
     restart: always
     networks:
