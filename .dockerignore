@@ -1,0 +1,33 @@
+# Git et IDE
+.git
+.idea
+.vscode
+
+# Laravel
+backend/vendor
+backend/.env
+backend/.env.production
+backend/.env.backup
+backend/storage/*.key
+backend/public/hot
+backend/public/storage
+backend/.phpunit.result.cache
+backend/*.log
+
+# Frontend
+frontend/node_modules
+
+# Worker
+worker/__pycache__
+
+# Logs
+*.log
+npm-debug.log
+yarn-error.log
+
+# Docker et CI
+docker-compose.dev.yml
+docker-compose.prod.yml
+.env
+.env.production
+.gitlab-ci.yml
