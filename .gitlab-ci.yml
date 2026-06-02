@@ -9,7 +9,12 @@ build:
   script:
     - cd $CI_PROJECT_DIR
     - envsubst < backend/.env.production > backend/.env
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker compose -f docker-compose.prod.yml build --no-cache
+    - docker push $CI_REGISTRY_IMAGE/vue:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY_IMAGE/laravel:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY_IMAGE/worker:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_SHORT_SHA
   only:
     - main
 
