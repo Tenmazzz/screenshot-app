@@ -12,19 +12,19 @@ build:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker compose -f docker-compose.prod.yml build
     
-    - docker push $CI_REGISTRY_IMAGE/vue:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY_IMAGE/vue:$VERSION
     - docker tag $CI_REGISTRY_IMAGE/vue:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE/vue:latest
     - docker push $CI_REGISTRY_IMAGE/vue:latest
 
-    - docker push $CI_REGISTRY_IMAGE/laravel:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY_IMAGE/laravel:$VERSION
     - docker tag $CI_REGISTRY_IMAGE/laravel:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE/laravel:latest
     - docker push $CI_REGISTRY_IMAGE/laravel:latest
 
-    - docker push $CI_REGISTRY_IMAGE/worker:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY_IMAGE/worker:$VERSION
     - docker tag $CI_REGISTRY_IMAGE/worker:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE/worker:latest
     - docker push $CI_REGISTRY_IMAGE/worker:latest
 
-    - docker push $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY_IMAGE/nginx:$VERSION
     - docker tag $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE/nginx:latest
     - docker push $CI_REGISTRY_IMAGE/nginx:latest
 
