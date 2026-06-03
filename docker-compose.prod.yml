@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: docker/vue/Dockerfile
       target: prod
-    image: ${CI_REGISTRY_IMAGE}/vue:${CI_COMMIT_SHORT_SHA}
+    image: ${CI_REGISTRY_IMAGE}/vue:${VERSION}
     restart: always
     networks:
       - interne
@@ -16,7 +16,7 @@ services:
       target: prod
     env_file: 
       - ./backend/.env
-    image: ${CI_REGISTRY_IMAGE}/laravel:${CI_COMMIT_SHORT_SHA}
+    image: ${CI_REGISTRY_IMAGE}/laravel:${VERSION}
     restart: always
     networks:
       - interne
@@ -32,7 +32,7 @@ services:
       target: prod
     env_file:
       - ./backend/.env
-    image: ${CI_REGISTRY_IMAGE}/laravel:${CI_COMMIT_SHORT_SHA}
+    image: ${CI_REGISTRY_IMAGE}/laravel:${VERSION}
     command: php artisan queue:work --queue=broadcast_queue
     restart: always
     networks:
@@ -45,7 +45,7 @@ services:
     build:
       context: .
       dockerfile: docker/worker/Dockerfile
-    image: ${CI_REGISTRY_IMAGE}/worker:${CI_COMMIT_SHORT_SHA}
+    image: ${CI_REGISTRY_IMAGE}/worker:${VERSION}
     environment:
       - PYTHONUNBUFFERED=1
     restart: always
@@ -58,7 +58,7 @@ services:
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
-    image: $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_SHORT_SHA
+    image: ${CI_REGISTRY_IMAGE}/nginx:${VERSION}
     restart: always
     ports:
       - "4242:80"
