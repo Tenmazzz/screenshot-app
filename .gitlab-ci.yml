@@ -8,7 +8,6 @@ build:
     - screenshot-runner
   script:
     - cd $CI_PROJECT_DIR
-    - envsubst < backend/.env.production > backend/.env
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker compose -f docker-compose.prod.yml build
     
