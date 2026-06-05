@@ -1,11 +1,11 @@
-# Stage base commun
+# Stage base commune
 FROM node:20-slim AS base
 WORKDIR /app
 COPY frontend/package*.json .
 RUN npm install --include=dev
 ENV PATH /app/node_modules/.bin:$PATH
 
-# Stage builder (prod)
+# Stage builder pour la prod
 FROM base AS builder
 COPY frontend/ .
 RUN npm run build
