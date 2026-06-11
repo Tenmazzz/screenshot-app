@@ -6,7 +6,6 @@ import Footer from './Footer.vue'
 const url = ref('')
 const screenshots = ref([])
 const placeholder = ref('https://')
-const pending = computed(() => screenshots.value.filter(s => s.status === 'pending').length)
 const failed = computed(() => screenshots.value.filter(s => s.status === 'failed').length)
 const done = computed(() => screenshots.value.filter(s => s.status === 'done').length)
 const fullSize = ref(false)
@@ -16,6 +15,7 @@ const showToast = ref(false)
 const toastStatus = ref('')
 const toastScreenId = ref('')
 const highlightedScreenId = ref(null)
+
 const mostFailed = computed(() => {
   const counts = {}
   screenshots.value.filter(s => s.status === 'failed').forEach(s => {
@@ -36,7 +36,7 @@ const mostSuccessful = computed(() => {
     .slice(0,3)
 })
 
-const sites = ['youtube.com', 'google.com', 'github.com', 'instagram.com', 'facebook.com', 'steam.com']
+const sites = ['youtube.com', 'google.com', 'github.com', 'instagram.com', 'facebook.com', 'steampowered.com']
 let siteIndex = 0
 let charIndex = 0
 let isDeleting = false

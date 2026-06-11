@@ -14,14 +14,12 @@ class ScreenshotController extends Controller
     {
         $validated = $request->validate(['url' => 'required|url']);
 
-        // 1. Sauvegarde en BDD
         $screenshot = Screenshot::create([
             'url'    => $validated['url'],
             'status' => 'pending',
             'full_size' => $request->full_size
         ]);
 
-        // 2. Publie dans Redis
         Redis::publish('screenshot_queue', json_encode([
             'id'  => $screenshot->id,
             'url' => $screenshot->url,
