@@ -28,7 +28,7 @@ build:
     - docker tag $CI_REGISTRY_IMAGE/nginx:$VERSION $CI_REGISTRY_IMAGE/nginx:latest
     - docker push $CI_REGISTRY_IMAGE/nginx:latest
 
-    #- docker image prune -f
+    - docker image prune -f
   only:
     - main
 
