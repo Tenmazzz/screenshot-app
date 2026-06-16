@@ -6,7 +6,6 @@ build:
   stage: build
   tags: 
     - local
-    - screenshot-runner
   image: docker:29
   services: 
     - docker:29-dind
@@ -39,7 +38,6 @@ deploy:
   stage: deploy
   tags:
     - local
-    - screenshot-runner
   script:
     - cd $CI_PROJECT_DIR
     - envsubst < backend/.env.production > backend/.env
