@@ -6,7 +6,6 @@ build:
   stage: build
   tags: 
     - local runner
-  image: docker:29
   services:
     - name: docker:29-dind
       command: ["--insecure-registry=gitlab.local:5050"]
