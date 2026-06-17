@@ -7,9 +7,9 @@ build:
   tags: 
     - local runner
   image: docker:29
-  services: 
-    - docker:29-dind
-      command:["--insecure-registry=gitlab.local:5050"]
+  services:
+    - name: docker:29-dind
+      command: ["--insecure-registry=gitlab.local:5050"]
   script:
     - cd $CI_PROJECT_DIR
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
