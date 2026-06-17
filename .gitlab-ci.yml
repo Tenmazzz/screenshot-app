@@ -5,7 +5,7 @@ stages:
 build:
   stage: build
   tags: 
-    - local
+    - local runner
   image: docker:29
   services: 
     - docker:29-dind
