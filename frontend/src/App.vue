@@ -112,6 +112,8 @@ onMounted(async () => {
       if (index !== -1) {
         screenshots.value[index] = { ...screenshots.value[index], ...e }
         toastStatus.value = e.status
+      }else {
+        screenshots.value.unshift(e)  // ← ajoute le screenshot pour les autres utilisateurs
       }
       showToast.value = true
       setTimeout(() => {

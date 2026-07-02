@@ -8,6 +8,7 @@ build:
     - local runner
   script:
     - cd $CI_PROJECT_DIR
+    
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker compose -f docker-compose.prod.yml build
     

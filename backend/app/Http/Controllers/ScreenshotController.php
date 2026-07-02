@@ -36,7 +36,7 @@ class ScreenshotController extends Controller
             'status'=>$request->status,
             'file_path'=> $request->file_path
         ]);
-        ScreenshotCompleted::dispatch($screenshot->id, $screenshot->status, $screenshot->file_path, $screenshot->url);
+        ScreenshotCompleted::dispatch($screenshot->id, $screenshot->status, $screenshot->file_path, $screenshot->url, $screenshot->created_at);
         
         return response()->json($screenshot);
     }

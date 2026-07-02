@@ -19,7 +19,7 @@ class ScreenshotCompleted implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public int $id, public string $status, public ?string $file_path, public string $url)
+    public function __construct(public int $id, public string $status, public ?string $file_path, public string $url, public string $created_at)
     {
         //
     }
