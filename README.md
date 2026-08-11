@@ -21,7 +21,7 @@ Projet réalisé pendant mon stage DevOps Full-Stack chez Free Iliad, comme test
 - Stockage : MinIO (S3-compatible)
 - DB : PostgreSQL
 - Reverse proxy : nginx
-- CI/CD : GitLab CI, build + push des images vers le Container Registry
+- CI/CD : GitLab CI, build + push des images vers le Container Registry (déclenchement manuel)
 
 ## Architecture
 
@@ -40,9 +40,9 @@ laravel → redis (queue) → laravel-worker (queue Laravel)
 
 ## Déploiement
 
-Ce repo contient le code et le pipeline CI/CD qui build les images et les push vers le Container Registry (GitLab local, utilisé pour ce test d'architecture — non accessible publiquement).
+Le pipeline `.gitlab-ci.yml` de ce repo build les 4 images et les push vers le Container Registry (GitLab local), avec un tag de version et `latest`. Déclenchement manuel, sur la branche `main`.
 
-Le déploiement (pull des images + lancement) se fait depuis un second repo : [screenshot-app_prod](https://github.com/Tenmazzz/screenshot-app_prod). Ce second repo n'est utilisable que sur l'environnement où le registry local est accessible.
+Le déploiement à proprement parler se fait depuis le pipeline du repo [screenshot-app_prod](https://github.com/Tenmazzz/screenshot-app_prod) : il copie `.env` et le `docker-compose` correspondant par SCP vers une VM (VirtualBox, exposée via tunnel Cloudflare), puis se connecte en SSH pour pull les images, relancer les conteneurs et lancer les migrations Laravel. Deux jobs manuels séparés : un pour la branche `staging`, un pour `main` (prod).
 
 ## Installation (dev)
 
