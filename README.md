@@ -40,16 +40,16 @@ laravel → redis (queue) → laravel-worker (queue Laravel)
 
 ## Déploiement
 
-Ce repo contient le code et le pipeline CI/CD qui build les images et les push vers le GitLab Container Registry.
+Ce repo contient le code et le pipeline CI/CD qui build les images et les push vers le Container Registry (GitLab local, utilisé pour ce test d'architecture — non accessible publiquement).
 
-Le déploiement (pull des images + lancement) se fait depuis un second repo : [screenshot-app-deploy](#) *(lien à ajouter)*.
+Le déploiement (pull des images + lancement) se fait depuis un second repo : [screenshot-app_prod](https://github.com/Tenmazzz/screenshot-app_prod). Ce second repo n'est utilisable que sur l'environnement où le registry local est accessible.
 
 ## Installation (dev)
 
 Prérequis : Docker + Docker Compose
 
 ```bash
-git clone <url_repo>
+git clone https://github.com/Tenmazzz/screenshot-app.git
 cd screenshot-app
 cp backend/.env.example backend/.env
 docker compose -f docker-compose.dev.yml up --build
@@ -100,14 +100,14 @@ MinIO utilise des identifiants par défaut (`minioadmin` / `minioadmin`) défini
 
 ```
 .
-├── backend            # API Laravel
+├── backend
 │   ├── app
 │   ├── config
 │   ├── routes
 │   └── .env.example
-├── frontend            # Vue.js
+├── frontend
 │   └── src
-├── worker              # traitement Python des screenshots
+├── worker
 │   └── worker.py
 ├── docker
 │   ├── nginx
